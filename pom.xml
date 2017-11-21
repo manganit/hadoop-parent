@@ -25,7 +25,7 @@
   </parent>
   <groupId>com.manganit</groupId>
   <artifactId>hadoop-parent</artifactId>
-  <version>1.0</version>
+  <version>1.1-SNAPSHOT</version>
   <packaging>pom</packaging>
   
   <name>Hadoop Parent POM</name>
@@ -43,7 +43,7 @@
     <connection>scm:git:git://github.com/manganit/hadoop-parent.git</connection>
     <developerConnection>scm:git:git@github.com:manganit/hadoop-parent.git</developerConnection>
     <url>http://github.com/manganit/hadoop-parent/tree/master</url>
-    <tag>v1.0</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <issueManagement>
