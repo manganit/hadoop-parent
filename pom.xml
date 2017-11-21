@@ -20,7 +20,7 @@
   <parent>
     <groupId>com.manganit</groupId>
     <artifactId>manganit-parent</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <!-- Needed for Jenkins build to fix [FATAL] Non-resolvable parent POM : Forces maven to download parent POM from the repository, instead of looking it up in the default path  ../pom.xml -->
     <relativePath/>
   </parent>
@@ -31,6 +31,7 @@
   
   <name>Hadoop Parent POM</name>
   <description>Maven Parent POM of the ManganIT Hadoop projects</description>
+  <url>http://github.com/manganit/hadoop-parent</url>
 
   <licenses>
     <license>
@@ -50,26 +51,106 @@
     <system>Github Issues</system>
     <url>http://github.com/manganit/hadoop-parent/issues</url>
   </issueManagement>
+  
+<!-- 
+  To build sub-projects of this parent POM using vendor-specific Hadoop binaries, 
+  you will probably need to proxyfy these repo in your corporate Nexus repos
+  or include these repos in a specific profile of yuour Maven settings.xml 
+-->
+<!--
+  <repositories>
+    <repository>
+      <id>maven-repo</id> 
+      <name>Maven Repository</name>
+      <url>http://repo.maven.apache.org/maven2</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>cloudera-repo</id>
+      <name>Cloudera Repository</name>
+      <url>https://repository.cloudera.com/artifactory/cloudera-repos</url>
+    </repository>
+    <repository>
+      <id>cdh.releases.repo</id>
+      <url>https://repository.cloudera.com/content/groups/cdh-releases-rcs</url>
+      <name>CDH Releases Repository</name>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>    
+    <repository>
+      <id>hdp-repo</id>
+      <url>http://repo.hortonworks.com/content/repositories/releases/</url>
+      <layout>default</layout>
+    </repository>    
+  </repositories>
+-->
 
   <properties>
+    <hadoop.version>2.7.3</hadoop.version>
+    <mr1.version>2.7.3</mr1.version>
+    <zookeeper.version>3.4.6</zookeeper.version>
+    <hive.version>1.2.1</hive.version>
+    <hive-hcatalog.version>1.2.1</hive-hcatalog.version>
+    <hbase.version>1.1.2</hbase.version>
+    <tez.version>0.7.0</tez.version>
+    <spark.version>1.6.2</spark.version>
+    <phoenix.version>4.7.0</phoenix.version>
+    <oozie.version>4.2.0</oozie.version>
+    <kafka.version>0.10.0</kafka.version>
+    <solr.version>6.3.0</solr.version>
+    <pig.version>0.16.0</pig.version>
+    <pig.classifier>h2</pig.classifier>
+    <sqoop.version>1.4.6</sqoop.version>
+    <flume.version>1.5.2</flume.version>
+    <mahout.version>0.9.0</mahout.version>
+    <parquet.version>1.6.0</parquet.version>
+    <avro.version>1.7.5</avro.version>
+    <falcon.version>0.10.0</falcon.version>
+    <atlas.version>0.7.0</atlas.version>
+    <!-- Dependency versions -->
+    <antlr.version>3.4</antlr.version>
+    <junit.version>4.11</junit.version>
+    <!-- Commons -->
+    <commons-cli.version>1.3</commons-cli.version>
+    <commons-lang.version>2.6</commons-lang.version>
+    <commons-lang3.version>3.3.2</commons-lang3.version>
+    <commons-io.version>2.4</commons-io.version>
+    <commons-configuration.version>1.6</commons-configuration.version>
+    <commons-daemon.version>1.0.13</commons-daemon.version>
+    <commons-httpclient.version>3.1</commons-httpclient.version>
+    <!-- Utility -->
+    <log4j.version>1.2.17</log4j.version>
+    <slf4j.version>1.7.10</slf4j.version>
+    <jackson.version>2.2.3</jackson.version>
+    <guava.version>11.0.2</guava.version>
+    <jsch.version>0.1.42</jsch.version>
+    <xerces.version>2.9.1</xerces.version>
+    <xalan.version>2.7.1</xalan.version>
+    <jetty.version>9.2.7.v20150116</jetty.version>
   </properties>    
 
   <profiles>
     <profile>
       <id>hdp-2.5.3.0-37</id>
+      <!--      
       <activation>
         <activeByDefault>true</activeByDefault>
       </activation>
+      -->
       <properties>
         <!-- Hadoop versions -->
-        <hdp.version>2.5.3.0-37</hdp.version>
-        <hadoop.version>2.7.3.${hdp.version}</hadoop.version>
-        <mr1.version>2.7.3.${hdp.version}</mr1.version>
-        <yarn.version>2.7.3.${hdp.version}</yarn.version>
-        <zookeeper.version>3.4.6.${hdp.version}</zookeeper.version>
-        <hive.version>1.2.1000.${hdp.version}</hive.version>
-        <hive-hcatalog.version>1.2.1000.${hdp.version}</hive-hcatalog.version>
-        <hbase.version>1.1.2.${hdp.version}</hbase.version>
+        <hdp.version>.2.5.3.0-37</hdp.version>
+        <hadoop.version>2.7.3${hdp.version}</hadoop.version>
+        <mr1.version>2.7.3${hdp.version}</mr1.version>
+        <zookeeper.version>3.4.6${hdp.version}</zookeeper.version>
+        <hive.version>1.2.1000${hdp.version}</hive.version>
+        <hbase.version>1.1.2${hdp.version}</hbase.version>
         <tez.version>0.7.0</tez.version>
         <spark.version>1.6.2</spark.version>
         <phoenix.version>4.7.0</phoenix.version>
@@ -104,8 +185,70 @@
         <jsch.version>0.1.42</jsch.version>
         <xerces.version>2.9.1</xerces.version>
         <xalan.version>2.7.1</xalan.version>
-        <jetty.version>9.2.7.v20150116</jetty.version>
+        <jetty.version>9.2.7.v20150116</jetty.version>        
       </properties>
+    </profile>
+    <profile>
+      <id>cdh-5.9.3</id>
+      <!-- we should think of a smarter way to reference the cdh-root-5.9.3.pom -->
+      <properties>
+        <cdh.version>-cdh5.9.3</cdh.version>
+        <commons-lang.version>2.6</commons-lang.version>
+        <commons-collections.version>3.2.2</commons-collections.version>        
+        <cdh.parent.version>5.9.3</cdh.parent.version>
+        <hadoop.version>2.6.0${cdh.version}</hadoop.version>
+        <mr1.version>2.6.0-mr1${cdh.version}</mr1.version>
+        <zookeeper.version>3.4.5${cdh.version}</zookeeper.version>
+        <hbase.version>1.2.0${cdh.version}</hbase.version>
+        <pig.version>0.12.0${cdh.version}</pig.version>
+        <sqoop.version>1.4.6${cdh.version}</sqoop.version>
+        <sqoop2.version>1.99.5${cdh.version}</sqoop2.version>
+        <hive.version>1.1.0${cdh.version}</hive.version>
+        <oozie.version>4.1.0${cdh.version}</oozie.version>
+        <whirr.version>0.9.0${cdh.version}</whirr.version>
+        <flume.version>0.9.4${cdh.version}</flume.version>
+        <flume-ng.version>1.6.0${cdh.version}</flume-ng.version>
+        <mahout.version>0.9${cdh.version}</mahout.version>
+        <hue.version>3.9.0${cdh.version}</hue.version>
+        <datafu.version>1.1.0${cdh.version}</datafu.version>
+        <solr.version>4.10.3${cdh.version}</solr.version>
+        <search.version>1.0.0${cdh.version}</search.version>
+        <hbase-solr.version>1.5${cdh.version}</hbase-solr.version>
+        <kite.version>1.0.0${cdh.version}</kite.version>
+        <impala.version>2.2.0${cdh.version}</impala.version>
+        <llama.version>1.0.0${cdh.version}</llama.version>
+        <cdh-parcel.version>5.9.3</cdh-parcel.version>
+        <sentry.version>1.5.1${cdh.version}</sentry.version>
+        <parquet.version>1.5.0${cdh.version}</parquet.version>
+        <parquet-format.version>2.1.0${cdh.version}</parquet-format.version>
+        <spark.version>1.6.0${cdh.version}</spark.version>
+        <spark-avro.version>1.1.0${cdh.version}</spark-avro.version>
+        <crunch.version>0.11.0${cdh.version}</crunch.version>
+        <avro.version>1.7.6${cdh.version}</avro.version>
+        <hadoop-lzo.version>0.4.15${cdh.version}</hadoop-lzo.version>
+        <impala-lzo.version>2.0.0${cdh.version}</impala-lzo.version>
+        <spark-netlib.version>1.1${cdh.version}</spark-netlib.version>
+        <tika.version>1.5</tika.version>
+        <tomcat.major.version>6</tomcat.major.version>
+        <tomcat.minor.version>0.45</tomcat.minor.version>
+        <tomcat.version>${cdh.tomcat.major.version}.${cdh.tomcat.minor.version}</tomcat.version>
+        <hadoop-snappy.version>1.0.4.1</hadoop-snappy.version>
+        <thrift.version>0.9.3</thrift.version>
+        <httpcomponents.version>4.2.5</httpcomponents.version>
+        <jackson.version>1.8.8</jackson.version>
+        <commons.el.version>1.0</commons.el.version>
+        <antlr.version>3.4</antlr.version>
+        <aspectj.version>1.6.5</aspectj.version>
+        <httpcomponents.core.version>4.2.5</httpcomponents.core.version>
+        <slf4j.version>1.7.5</slf4j.version>
+        <metrics-core.version>3.0.2</metrics-core.version>
+        <jets3t.version>0.9.0</jets3t.version>
+        <kafka.version>0.9.0-kafka-2.0.2</kafka.version>
+        <curator.version>2.7.1</curator.version>
+        <joda-time.version>2.8</joda-time.version>
+        <fastutil.version>6.3</fastutil.version>
+        <protobuf.version>2.5.0</protobuf.version>
+      </properties>      
     </profile>
   </profiles>
         
